@@ -57,6 +57,12 @@ export default function App() {
 
   const persona = PERSONAS[activePersona];
 
+  // Sync backend persona on first load (fixes desync when page is reopened)
+  useEffect(() => {
+    changePersona(activePersona).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Auto-scroll on new messages
   useEffect(() => {
     if (chatRef.current) {
